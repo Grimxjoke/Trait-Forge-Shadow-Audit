@@ -10,6 +10,7 @@ import '../TraitForgeNft/ITraitForgeNft.sol';
 contract EntityForging is IEntityForging, ReentrancyGuard, Ownable, Pausable {
   ITraitForgeNft public nftContract;
   address payable public nukeFundAddress;
+  //audit Lack some Decentralisation -> Owner can change the percentage of fees redirect to the devs for each Tx
   uint256 public taxCut = 10;
   uint256 public oneYearInDays = 365 days;
   uint256 public listingCount = 0;
@@ -33,6 +34,8 @@ contract EntityForging is IEntityForging, ReentrancyGuard, Ownable, Pausable {
     nukeFundAddress = _nukeFundAddress;
   }
 
+
+  //audit The owner can change the tax whenever he wants, lack decentralisation
   function setTaxCut(uint256 _taxCut) external onlyOwner {
     taxCut = _taxCut;
   }
@@ -41,6 +44,7 @@ contract EntityForging is IEntityForging, ReentrancyGuard, Ownable, Pausable {
     oneYearInDays = value;
   }
 
+  //audit The owner can change the listing fee whenever he wants, lack decentralisation
   function setMinimumListingFee(uint256 _fee) external onlyOwner {
     minimumListFee = _fee;
   }
@@ -80,6 +84,7 @@ contract EntityForging is IEntityForging, ReentrancyGuard, Ownable, Pausable {
       'Fee should be higher than minimum listing fee'
     );
 
+    //audit what's that ? 
     _resetForgingCountIfNeeded(tokenId);
 
     uint256 entropy = nftContract.getTokenEntropy(tokenId); // Retrieve entropy for tokenId

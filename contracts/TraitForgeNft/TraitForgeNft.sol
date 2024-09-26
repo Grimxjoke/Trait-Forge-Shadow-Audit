@@ -49,6 +49,7 @@ contract TraitForgeNft is
   uint256 private _tokenIds;
 
   modifier onlyWhitelisted(bytes32[] calldata proof, bytes32 leaf) {
+    //note Does't block if the whiteList has Ended
     if (block.timestamp <= whitelistEndTime) {
       require(
         MerkleProof.verify(proof, rootHash, leaf),
@@ -231,6 +232,7 @@ contract TraitForgeNft is
     return price;
   }
 
+  //audit Is there actually any entropy at All ? 
   function getTokenEntropy(uint256 tokenId) public view returns (uint256) {
     require(
       ownerOf(tokenId) != address(0),

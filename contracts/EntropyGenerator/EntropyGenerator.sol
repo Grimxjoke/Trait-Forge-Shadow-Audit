@@ -6,6 +6,7 @@ import '@openzeppelin/contracts/security/Pausable.sol';
 import './IEntropyGenerator.sol';
 
 // EntropyGenerator is a contract designed to generate pseudo-random values for use in other contracts
+//audit Is the generation really Random ? Do they correctly use Chainlink Feed ? 
 contract EntropyGenerator is IEntropyGenerator, Ownable, Pausable {
   uint256[770] private entropySlots; // Array to store entropy values
   uint256 private lastInitializedIndex = 0; // Indexes to keep track of the initialization and usage of entropy values
